@@ -21,19 +21,13 @@
 2. نفّذ `npm install` ثم `npm run dev`.
 3. انسخ `.env.example` إلى `.env.local` وأدخل إعدادات مشروع Supabase.
 
-## إعداد Supabase
-- إذا لم تكن قد شغّلت `supabase/setup.sql` من قبل، شغّله أولاً.
-- بعده شغّل `supabase/full_platform.sql` مرة واحدة في SQL Editor. هذا ملف ترقية إضافي يحافظ على الجداول الحالية ويضيف خصائص المنصة.
-- أنشئ حساب الإدارة من Supabase Authentication ثم امنحه الدور باستخدام UUID الخاص به:
-
-```sql
-insert into public.user_roles (user_id, role)
-values ('AUTH_USER_UUID', 'admin')
-on conflict (user_id) do update set role = excluded.role;
-```
-
-- أضف متغيري `NEXT_PUBLIC_SUPABASE_URL` و`NEXT_PUBLIC_SUPABASE_ANON_KEY` إلى Vercel ثم أعد النشر.
-- تأكد من تفعيل تأكيد البريد الإلكتروني أو ضبطه حسب طريقة تسجيل الطلاب التي تريدها.
+## إعداد Supabase الحالي (قاعدة بيانات موجودة مسبقاً)
+- هذا الإصدار مخصص لمشروع Supabase الذي يحتوي بالفعل على الجداول الأساسية: `profiles`, `lessons`, `worksheets`, `quizzes`, `quiz_questions`, `quiz_attempts`, `lesson_progress`, `announcements`, و`user_roles`.
+- لا تشغّل `setup.sql` أو `full_platform.sql` على قاعدة البيانات الحالية لمجرد الترقية؛ استخدم ملف الترقية الموحد `supabase/free_platform_setup.sql` مرة واحدة فقط.
+- افتح Supabase SQL Editor، أنشئ New query، والصق محتوى `free_platform_setup.sql` ثم Run. الملف يضيف حقول YouTube وجداول Google Meet والحضور وسياسات الوصول المجاني حسب الصف، ولا يحذف الجداول الأساسية أو بياناتها.
+- إذا أظهر SQL Editor رسالة `Success. No rows returned` فهذا طبيعي لأوامر إنشاء/تعديل الجداول.
+- أضف `NEXT_PUBLIC_SUPABASE_URL` و`NEXT_PUBLIC_SUPABASE_ANON_KEY` إلى إعدادات Vercel. لا تضع مفتاح `service_role` في متغيرات `NEXT_PUBLIC_`.
+- إنشاء وإدارة اجتماعات Google Meet يحتاج إعداد Google API وبيانات حساب المنظّمة في متغيرات البيئة الموضحة في `.env.example`؛ من دونها تبقى صفحات الحصص موجودة لكن إنشاء الاجتماع لن يعمل.
 
 ## ملاحظات مهمة قبل الإطلاق العام
 - فيديوهات الدروس الجديدة مستضافة على YouTube بوضع Unlisted، بينما تحفظ Supabase بيانات الدروس فقط. قد تبقى ملفات فيديو قديمة أو فيديوهات حلول اختبارات في Supabase Storage.
@@ -42,7 +36,7 @@ on conflict (user_id) do update set role = excluded.role;
 - لا تضع مفاتيح Supabase السرية (service role) في متغيرات `NEXT_PUBLIC_` أو في المتصفح.
 
 ## تشغيل المنصة مجاناً بدون اشتراكات أو دفع
-1. بعد تشغيل `setup.sql` و`full_platform.sql` و`upgrade_live_payments.sql` (إذا كنت تستخدم جداول Meet) و`youtube_lessons_subscriptions.sql`، شغّل `supabase/free_access_no_subscriptions.sql` في Supabase SQL Editor. هذا الملف يزيل شرط الاشتراك من قراءة الدروس والملازم والاختبارات والحصص، مع الإبقاء على تسجيل الدخول وتقييد المحتوى حسب الصف الدراسي.
+1. في قاعدة البيانات الحالية، شغّل `supabase/free_platform_setup.sql` فقط. لا تشغّل ملفات SQL القديمة المذكورة في المجلد على نفس قاعدة البيانات.
 2. لا تحتاج إلى حساب تاجر Fawry أو مفاتيح دفع أو إعداد باقات أو أكواد تفعيل في هذه المرحلة.
 3. لا يحتاج الطالب إلى شراء اشتراك؛ ينشئ حساباً مجانياً ويسجل الدخول ليصل إلى المحتوى المنشور الخاص بصفه.
 4. تظل صفحة `/admin/live` لإدارة الحصص، وصفحة `/live` للطلاب. إعداد Google Meet API وحساب المدرّسة ما زال مطلوباً إذا أردت إنشاء الاجتماعات وإضافة الطلاب تلقائياً.
@@ -54,7 +48,7 @@ on conflict (user_id) do update set role = excluded.role;
 - لم يتم نقل الفيديوهات إلى Bunny/Cloudflare في هذه المرحلة؛ يلزم اختيار مزود الفيديو وبيانات الحساب وخطة التخزين قبل نقل الأصول الحالية.
 
 ## YouTube Unlisted lessons — free student access
-1. After running the previous SQL files, run `supabase/youtube_lessons_subscriptions.sql` only if needed for the YouTube columns, then run `supabase/free_access_no_subscriptions.sql` to enable free access.
+1. For the existing database, run `supabase/free_platform_setup.sql` once. Do not run the older migration files on top of it.
 2. Upload each lesson to the academy's YouTube channel and set its visibility to **Unlisted / غير مدرج** (not Private). Copy its share URL.
 3. In `/admin`, choose **فيديو شرح**, enter the lesson title, grade, unit and YouTube URL, then save. Supabase stores only the lesson metadata and YouTube video ID; the video file itself stays on YouTube.
 4. Students only need a free account and sign-in. Published lessons, worksheets, quizzes and live classes are available to accounts whose profile grade matches the content grade; no paid subscription is checked.
