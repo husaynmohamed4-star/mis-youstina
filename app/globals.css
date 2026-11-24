@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
 /* Miss Youstina — design system: ink navy + red-pen accent, copybook motif */
 :root{
-  --ink:#2b1d70; --ink2:#4531b3; --text:#2a2650; --muted:#6c6890;
-  --bg:#f6f4ff; --card:#fff; --line:#e4dff7; --soft:#ede9ff;
-  --rose:#ffc933; --red:#ff5d73; --green:#14935f; --green-soft:#e2f5ec; --amber:#b7791f;
-  --r-sm:10px; --r-md:16px; --r-lg:28px; --focus:#7a5cff;
+  --ink:#f3f1ff; --ink2:#a78bfa; --text:#e4e1fb; --muted:#9b97c4;
+  --bg:#0a0820; --card:rgba(255,255,255,.045); --line:rgba(255,255,255,.09); --soft:rgba(139,92,246,.16);
+  --rose:#ffc933; --red:#fb7185; --green:#34d399; --green-soft:rgba(52,211,153,.14); --amber:#fbbf24;
+  --r-sm:10px; --r-md:16px; --r-lg:28px; --focus:#8b5cf6;
+  --accent:#8b5cf6; --grad:linear-gradient(135deg,#4f6bff,#8b5cf6); --paper-ink:#2b1d70;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -407,3 +409,134 @@ input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus{o
 .quiz-result>svg{animation:stamp .6s cubic-bezier(.3,1.4,.5,1) backwards}
 .upload-progress{animation:fade .3s}
 @media (max-width:600px){.grade-cards.three{grid-template-columns:1fr}.grade-choice{grid-template-columns:1fr 1fr}}
+
+
+/* ═════════ Dark glass theme (colors only) — delete this block + restore :root to go back ═════════ */
+body{background:
+  radial-gradient(900px 600px at 95% -5%,rgba(124,58,237,.45),transparent 60%),
+  radial-gradient(800px 600px at -5% 105%,rgba(20,184,166,.32),transparent 60%),
+  #0a0820;background-attachment:fixed;min-height:100vh}
+::placeholder{color:#7d79a8}
+::selection{background:rgba(139,92,246,.45);color:#fff}
+select option{background:#14102f;color:#e4e1fb}
+
+/* glass surfaces */
+.lesson-card,.quiz-card,.worksheet-card,.account-card,.grade-tile,.quick-stats>div,.question-card,.quiz-heading,.quiz-result,
+.admin-stat,.content-table,.admin-table-wrap,.admin-panel,.empty-panel,.empty-admin{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.09);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.site-header{background:rgba(10,8,32,.72);border-bottom-color:rgba(255,255,255,.08)}
+.admin-topbar{background:rgba(10,8,32,.72);border-bottom-color:rgba(255,255,255,.08)}
+.auth-modal,.login-card{background:rgba(20,16,50,.94);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.modal-backdrop{background:rgba(5,4,20,.72)}
+.admin-scrim{background:rgba(5,4,20,.65)!important}
+.modal-close{background:rgba(255,255,255,.08);color:#fff}
+
+/* buttons */
+.primary-btn,.admin-primary{background:var(--grad);color:#fff}
+.primary-btn:hover,.admin-primary:hover{background:linear-gradient(135deg,#6580ff,#a07bff);box-shadow:0 8px 24px rgba(139,92,246,.45)}
+.secondary-btn,.admin-secondary,.icon-action,.admin-link,.student-account,.lesson-info button,.quiz-card>button,.admin-section-head button,.grade-picker button,.delete-content{background:rgba(255,255,255,.05);color:var(--ink);border-color:rgba(255,255,255,.12)}
+.secondary-btn:hover,.admin-secondary:hover,.admin-link:hover,.student-account:hover,.admin-section-head button:hover,.grade-picker button:hover,.grade-tile:hover,.lesson-card:hover,.search-field:focus-within{border-color:var(--accent)}
+.icon-action:hover{background:rgba(139,92,246,.2)}
+.grade-picker button.selected,.lesson-info button:hover,.quiz-card>button:hover,.grade-chip button:hover{background:var(--grad);border-color:transparent;color:#fff}
+.worksheet-card>a{background:var(--grad);color:#fff}
+.worksheet-card>a:hover{background:linear-gradient(135deg,#6580ff,#a07bff)}
+.main-nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.main-nav button.active{background:rgba(139,92,246,.22);color:#fff}
+.menu-toggle,.admin-menu{color:var(--ink)}
+
+/* brand */
+.brand-symbol,.admin-logo,.user-avatar{background:var(--grad);color:#fff}
+.admin-brand .brand-symbol{background:var(--grad);color:#fff}
+.admin-brand .brand-symbol span,.brand-symbol span{color:#ffd966}
+.welcome-modal .admin-logo{background:var(--grad)}
+.toast-message{background:#2a2170;color:#fff;border:1px solid rgba(255,255,255,.12)}
+.announcement-strip{background:linear-gradient(90deg,rgba(124,58,237,.55),rgba(79,107,255,.35));border-bottom:1px solid rgba(255,255,255,.08);color:#ece8ff}
+
+/* hero + banners */
+.hero-wrap{background:radial-gradient(circle at 12% 18%,rgba(139,92,246,.7) 0,transparent 48%),radial-gradient(circle at 92% 92%,rgba(20,184,166,.35) 0,transparent 45%),linear-gradient(135deg,#2a1b73,#161047);border:1px solid rgba(255,255,255,.1)}
+.hero-wrap .primary-btn,.admin-white-btn{background:#fff;color:#2b1d70}
+.hero-wrap .primary-btn:hover{background:#ece8ff;box-shadow:none}
+.admin-welcome-card{background:radial-gradient(circle at 10% 10%,rgba(139,92,246,.7) 0,transparent 50%),radial-gradient(circle at 95% 100%,rgba(20,184,166,.3) 0,transparent 45%),linear-gradient(135deg,#2a1b73,#161047);border:1px solid rgba(255,255,255,.1)}
+.path-banner{background:rgba(139,92,246,.12);border:1px solid rgba(255,255,255,.08)}
+.path-steps span{background:rgba(255,255,255,.06);color:var(--ink)}
+.path-steps svg{color:#c4b5fd}
+.quick-stats .stats-note{background:rgba(139,92,246,.18)}
+.quick-stats .stats-note strong{color:#c4b5fd}
+.book-back{background:rgba(167,139,250,.4)}
+.book-front,.book-front svg{color:var(--paper-ink)}
+.book-front small{color:#6c6890}
+.art-chip{background:rgba(255,255,255,.95);color:var(--paper-ink)}
+.art-stamp{background:rgba(20,16,50,.85)}
+
+/* sidebar */
+.admin-sidebar{background:rgba(255,255,255,.035);border-inline-start:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);color:#c9c4ee}
+.admin-login-screen{background:radial-gradient(800px 600px at 90% 0,rgba(124,58,237,.5),transparent 60%),radial-gradient(700px 600px at 0 100%,rgba(20,184,166,.35),transparent 60%),#0a0820}
+.side-item{color:#c9c4ee}
+.side-item:hover{background:rgba(255,255,255,.07);color:#fff}
+.side-item.current{background:linear-gradient(135deg,rgba(79,107,255,.55),rgba(139,92,246,.45));color:#fff;border:1px solid rgba(255,255,255,.1)}
+.admin-layout{background:transparent}
+.admin-user b{color:var(--ink)}
+
+/* page titles */
+.page-intro h1,.admin-topbar h1{background:linear-gradient(90deg,#a78bfa,#f0abfc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* icon tiles (solid gradients like the dashboard cards) */
+.tile-icon,.admin-stat>span,.quiz-card-icon,.panel-icon,.managed-icon{color:#fff}
+.tile-1 .tile-icon,.admin-stat:nth-child(1)>span,.quiz-card-icon,.panel-icon,.managed-icon.video{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff}
+.tile-2 .tile-icon,.admin-stat:nth-child(2)>span,.managed-icon.pdf,.pdf-badge{background:linear-gradient(135deg,#ec4899,#f43f5e);color:#fff}
+.tile-3 .tile-icon,.admin-stat:nth-child(3)>span{background:linear-gradient(135deg,#10b981,#34d399);color:#fff}
+.tile-4 .tile-icon,.admin-stat:nth-child(4)>span{background:linear-gradient(135deg,#f59e0b,#fb923c);color:#fff}
+.empty-panel>span{background:rgba(139,92,246,.2);color:#c4b5fd}
+.empty-panel,.empty-admin{border-color:rgba(255,255,255,.16)}
+
+/* lessons */
+.lesson-cover{background:linear-gradient(90deg,transparent 30px,rgba(255,201,51,.5) 30px,rgba(255,201,51,.5) 31px,transparent 31px),repeating-linear-gradient(#1b1450 0 27px,#2c2075 27px 28px)}
+.lesson-cover>div{background:#fff;color:var(--paper-ink)}
+.lesson-card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 1px rgba(139,92,246,.35)}
+.quiz-card:hover,.worksheet-card:hover{box-shadow:0 12px 28px rgba(0,0,0,.4)}
+.solution-link{background:rgba(251,113,133,.14);color:#fda4af}
+
+/* quiz */
+.answer-option{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.12)}
+.answer-option:hover{border-color:rgba(167,139,250,.6)}
+.answer-option.chosen{border-color:var(--accent);background:rgba(139,92,246,.2);color:#fff}
+.answer-option input,.check-line input{accent-color:var(--accent)}
+.quiz-result>svg{color:var(--green)}
+
+/* forms */
+input:not([type=checkbox]):not([type=radio]),select,textarea{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);color:var(--text)}
+input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.25)}
+.search-field{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)}
+.grade-choice button,.kind-switch button{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);color:var(--muted)}
+.grade-choice button.selected,.kind-switch button.chosen{border-color:var(--accent);background:rgba(139,92,246,.22);color:#fff}
+.grade-chip{background:rgba(139,92,246,.18);color:var(--ink)}
+.grade-chip button{background:rgba(255,255,255,.1);color:#fff}
+.form-message{background:rgba(139,92,246,.18);color:#e4e1fb}
+.auth-switch,.admin-data-table a{color:#c4b5fd}
+.file-drop{background:rgba(255,255,255,.03);border-color:rgba(167,139,250,.4)}
+.file-drop:hover{background:rgba(139,92,246,.14);border-color:var(--accent)}
+.file-drop svg{color:#c4b5fd}
+.question-builder{background:rgba(255,255,255,.03)}
+.draft-list>div{background:rgba(255,255,255,.05)}
+.upload-progress{background:rgba(139,92,246,.18)}
+
+/* tables + status */
+.admin-data-table th{background:rgba(255,255,255,.05);color:var(--muted);border-bottom-color:rgba(255,255,255,.08)}
+.admin-data-table td{border-bottom-color:rgba(255,255,255,.06)}
+.admin-data-table tbody tr:hover{background:rgba(255,255,255,.04)}
+.published-tag{background:rgba(255,255,255,.08);color:var(--muted)}
+.published-tag.on{background:rgba(52,211,153,.16);color:#6ee7b7}
+.admin-feedback{background:rgba(52,211,153,.14);color:#6ee7b7;border:1px solid rgba(52,211,153,.25)}
+.admin-alert{background:rgba(251,113,133,.14);color:#fda4af;border:1px solid rgba(251,113,133,.25)}
+.delete-content{color:#fb7185}
+.delete-content:hover{background:rgba(251,113,133,.16);border-color:rgba(251,113,133,.4)}
+.draft-list button{color:#fb7185}
+.logout-item:hover{background:rgba(251,113,133,.16);color:#fda4af}
+.file-meta{color:#34d399}
+
+/* footer */
+.site-footer{border-top-color:rgba(255,255,255,.08)}
+
+@media (max-width:860px){
+  .main-nav{background:rgba(14,11,38,.97);border-bottom-color:rgba(255,255,255,.08);backdrop-filter:blur(16px)}
+  .admin-sidebar{background:rgba(14,11,38,.97)}
+}
